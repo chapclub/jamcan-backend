@@ -2,7 +2,6 @@ defmodule Jamstack.JS.Party do
   use Ecto.Schema
   import Ecto.Changeset
 
-
   schema "parties" do
     field :active, :boolean, default: true
     field :auth_token, :string
