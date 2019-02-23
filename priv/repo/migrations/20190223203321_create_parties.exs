@@ -6,8 +6,7 @@ defmodule Jamstack.Repo.Migrations.CreateParties do
       add :title, :string
       add :join_code, :string
       add :active, :boolean, default: true, null: false
-      add :auth_token, :string
-      add :refresh_token, :string
+      add :owner_id, :string
 
       timestamps()
     end

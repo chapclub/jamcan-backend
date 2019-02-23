@@ -21,7 +21,7 @@ defmodule Jamstack.JS.SessionCode do
   code recursively until existence is false and update the cache with the given
   code. Returns the ultimately inserted code.
   """
-  def put_code(code, true), do: take_code()
+  def put_code(_, true), do: take_code()
   def put_code(code, false) do
     Agent.update(__MODULE__, &Map.put(&1, code, :used))
     code

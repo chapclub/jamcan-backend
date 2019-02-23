@@ -4,10 +4,9 @@ defmodule Jamstack.JS.Party do
 
   schema "parties" do
     field :active, :boolean, default: true
-    field :auth_token, :string
     field :join_code, :string
-    field :refresh_token, :string
     field :title, :string
+    field :owner_id, :string
 
     timestamps()
   end
@@ -15,7 +14,7 @@ defmodule Jamstack.JS.Party do
   @doc false
   def changeset(party, attrs) do
     party
-    |> cast(attrs, [:title, :join_code, :active, :auth_token, :refresh_token])
-    |> validate_required([:title, :join_code, :active, :auth_token, :refresh_token])
+    |> cast(attrs, [:title, :join_code, :active, :owner_id])
+    |> validate_required([:title, :join_code, :active, :owner_id])
   end
 end
