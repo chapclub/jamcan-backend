@@ -8,6 +8,7 @@ defmodule Jamstack.Application do
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
+      Jamstack.JS.SessionCode,
       # Start the Ecto repository
       Jamstack.Repo,
       # Start the endpoint when the application starts

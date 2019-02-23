@@ -20,7 +20,9 @@ defmodule JamstackWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", JamstackWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", JamstackWeb do
+    pipe_through :api
+
+    resources "/parties", PartyController, except: [:new, :edit]
+  end
 end
