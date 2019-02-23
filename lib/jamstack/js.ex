@@ -7,6 +7,7 @@ defmodule Jamstack.JS do
   alias Jamstack.Repo
 
   alias Jamstack.JS.Party
+  alias Jamstack.JS.SessionCode
 
   @doc """
   Returns the list of parties.
@@ -50,7 +51,10 @@ defmodule Jamstack.JS do
 
   """
   def create_party(attrs \\ %{}) do
-    %Party{}
+    # TODO: create a session
+    %Party{
+      join_code: SessionCode.take_code()
+    }
     |> Party.changeset(attrs)
     |> Repo.insert()
   end

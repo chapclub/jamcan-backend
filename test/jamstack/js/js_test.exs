@@ -41,6 +41,28 @@ defmodule Jamstack.JSTest do
       assert {:error, %Ecto.Changeset{}} = JS.create_party(@invalid_attrs)
     end
 
+    test "create_party/1 without a join_code will set a random code" do
+      attrs = %{active: true, owner_id: "some owner_id", title: "some title"}
+
+      assert {:ok, %Party{} = party} = JS.create_party(attrs)
+      assert party.active == true
+      assert party.owner_id == "some owner_id"
+      assert party.title == "some title"
+
+      assert party.join_code
+
+      words = party.join_code
+      |> String.split("-")
+
+      assert Enum.count(words) == 2
+
+      Enum.each(words, fn word ->
+        assert String.length(word) > 2
+        assert String.length(word) < 5
+      end)
+
+    end
+
     test "update_party/2 with valid data updates the party" do
       party = party_fixture()
       assert {:ok, %Party{} = party} = JS.update_party(party, @update_attrs)
