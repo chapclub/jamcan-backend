@@ -4,7 +4,7 @@ defmodule Jamstack.JS.Party do
 
 
   schema "parties" do
-    field :active, :boolean, default: false
+    field :active, :boolean, default: true
     field :auth_token, :string
     field :join_code, :string
     field :refresh_token, :string
