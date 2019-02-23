@@ -6,19 +6,17 @@ defmodule JamstackWeb.PartyControllerTest do
 
   @create_attrs %{
     active: true,
-    auth_token: "some auth_token",
     join_code: "some join_code",
-    refresh_token: "some refresh_token",
+    owner_id: "some owner_id",
     title: "some title"
   }
   @update_attrs %{
     active: false,
-    auth_token: "some updated auth_token",
     join_code: "some updated join_code",
-    refresh_token: "some updated refresh_token",
+    owner_id: "some updated owner_id",
     title: "some updated title"
   }
-  @invalid_attrs %{active: nil, auth_token: nil, join_code: nil, refresh_token: nil, title: nil}
+  @invalid_attrs %{active: nil, join_code: nil, owner_id: nil, title: nil}
 
   def fixture(:party) do
     {:ok, party} = JS.create_party(@create_attrs)
@@ -46,9 +44,8 @@ defmodule JamstackWeb.PartyControllerTest do
       assert %{
                "id" => id,
                "active" => true,
-               "auth_token" => "some auth_token",
                "join_code" => "some join_code",
-               "refresh_token" => "some refresh_token",
+               "owner_id" => "some owner_id",
                "title" => "some title"
              } = json_response(conn, 200)["data"]
     end
@@ -71,9 +68,8 @@ defmodule JamstackWeb.PartyControllerTest do
       assert %{
                "id" => id,
                "active" => false,
-               "auth_token" => "some updated auth_token",
                "join_code" => "some updated join_code",
-               "refresh_token" => "some updated refresh_token",
+               "owner_id" => "some updated owner_id",
                "title" => "some updated title"
              } = json_response(conn, 200)["data"]
     end

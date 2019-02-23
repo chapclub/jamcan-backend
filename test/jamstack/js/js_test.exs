@@ -6,9 +6,9 @@ defmodule Jamstack.JSTest do
   describe "parties" do
     alias Jamstack.JS.Party
 
-    @valid_attrs %{active: true, auth_token: "some auth_token", join_code: "some join_code", refresh_token: "some refresh_token", title: "some title"}
-    @update_attrs %{active: false, auth_token: "some updated auth_token", join_code: "some updated join_code", refresh_token: "some updated refresh_token", title: "some updated title"}
-    @invalid_attrs %{active: nil, auth_token: nil, join_code: nil, refresh_token: nil, title: nil}
+    @valid_attrs %{active: true, join_code: "some join_code", owner_id: "some owner_id", title: "some title"}
+    @update_attrs %{active: false, join_code: "some updated join_code", owner_id: "some updated owner_id", title: "some updated title"}
+    @invalid_attrs %{active: nil, join_code: nil, owner_id: nil, title: nil}
 
     def party_fixture(attrs \\ %{}) do
       {:ok, party} =
@@ -32,9 +32,8 @@ defmodule Jamstack.JSTest do
     test "create_party/1 with valid data creates a party" do
       assert {:ok, %Party{} = party} = JS.create_party(@valid_attrs)
       assert party.active == true
-      assert party.auth_token == "some auth_token"
       assert party.join_code == "some join_code"
-      assert party.refresh_token == "some refresh_token"
+      assert party.owner_id == "some owner_id"
       assert party.title == "some title"
     end
 
@@ -46,9 +45,8 @@ defmodule Jamstack.JSTest do
       party = party_fixture()
       assert {:ok, %Party{} = party} = JS.update_party(party, @update_attrs)
       assert party.active == false
-      assert party.auth_token == "some updated auth_token"
       assert party.join_code == "some updated join_code"
-      assert party.refresh_token == "some updated refresh_token"
+      assert party.owner_id == "some updated owner_id"
       assert party.title == "some updated title"
     end
 

@@ -15,7 +15,6 @@ defmodule JamstackWeb.PartyView do
       title: party.title,
       join_code: party.join_code,
       active: party.active,
-      auth_token: party.auth_token,
-      refresh_token: party.refresh_token}
+      owner_id: party.owner_id}
   end
 end
