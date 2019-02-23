@@ -11,6 +11,11 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
 
+## Start a Database
+```
+docker run --name jamdb -d -p 5432:5432 -e POSTGRES_PASSWORD=postgres postgres
+```
+
 ## Learn more
 
   * Official website: http://www.phoenixframework.org/
