@@ -4,6 +4,7 @@ defmodule Jamstack.JS.Youtube do
   alias Goth.Token
   alias GoogleApi.YouTube.V3.Connection
   alias GoogleApi.YouTube.V3.Api.Search
+  alias GoogleApi.YouTube.V3.Api.Videos
 
   def get_google_conn do
     {:ok, token} = Token.for_scope("https://www.googleapis.com/auth/youtube")
@@ -25,6 +26,16 @@ defmodule Jamstack.JS.Youtube do
         conn,
         "snippet",
         q: term
+      )
+    end)
+  end
+
+  def get_video_player(id) do
+    Agent.get(__MODULE__, fn conn ->
+      Videos.youtube_videos_list(
+        conn,
+        "player,contentDetails",
+        id: id
       )
     end)
   end

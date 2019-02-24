@@ -16,7 +16,8 @@ defmodule Jamstack.Party.SongRequest do
   @doc false
   def changeset(song_request, attrs) do
     song_request
-    |> cast(attrs, [:spotify_uri, :boo_count, :title])
+    |> cast(attrs, [:spotify_uri, :boo_count, :title, :party_id])
+    |> cast_assoc(:party)
     |> validate_required([:spotify_uri, :boo_count, :title])
   end
 end

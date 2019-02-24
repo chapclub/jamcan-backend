@@ -29,7 +29,12 @@ defmodule JamstackWeb.SongRequestController do
 
   def index(conn, _params) do
     { conn, { party_id, name } } = protecc(conn)
+
     song_requests = Party.list_song_requests()
+    |> Enum.filter(fn req ->
+      req.party_id == party_id
+    end)
+
     party = JS.get_party!(party_id)
 
     render(conn, "index.html", song_requests: song_requests, party: party, name: name)
@@ -41,7 +46,7 @@ defmodule JamstackWeb.SongRequestController do
 
     query = params["query"]
     {status, results} = case query do
-      nil -> {:ok, []}
+      nil -> {:ok, %{items: []}}
       _ -> Jamstack.JS.Youtube.search(query)
     end
 
@@ -58,7 +63,8 @@ defmodule JamstackWeb.SongRequestController do
         |> redirect(to: Routes.song_request_path(conn, :show, song_request))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        throw changeset
+        render(conn, "new.html", changeset: changeset, results: [], party_id: nil)
     end
   end
 

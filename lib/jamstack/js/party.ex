@@ -4,11 +4,14 @@ defmodule Jamstack.JS.Party do
 
   import Ecto.Query, only: [from: 2]
 
+  alias Jamstack.Party.SongRequest
+
   schema "parties" do
     field :active, :boolean, default: true
     field :join_code, :string
     field :title, :string
     field :owner_id, :string
+    has_many :song_requests, SongRequest
 
     timestamps()
   end
