@@ -6,7 +6,7 @@
 <table>
   <thead>
     <tr>
-      <th>Song Name - Spotify URI</th>
+      <th>Song Name</th>
       <th>Boo's</th>
 
       <th></th>
@@ -15,13 +15,14 @@
   <tbody>
 <%= for song_request <- @song_requests do %>
     <tr>
-      <td><%= song_request.spotify_uri %></td>
+      <td><%= song_request.title %></td>
       <td><%= song_request.boo_count %></td>
 
       <td>
-        <%= link "Show", to: Routes.song_request_path(@conn, :show, song_request) %>
-        <%= link "Edit", to: Routes.song_request_path(@conn, :edit, song_request) %>
-        <%= link "Delete", to: Routes.song_request_path(@conn, :delete, song_request), method: :delete, data: [confirm: "Are you sure?"] %>
+        <%= button "check it", to: Routes.song_request_path(@conn, :show, song_request), method: "get" %>
+
+        <!-- <%= link "Edit", to: Routes.song_request_path(@conn, :edit, song_request) %> -->
+        <!-- <%= link "Delete", to: Routes.song_request_path(@conn, :delete, song_request), method: :delete, data: [confirm: "Are you sure?"] %> -->
       </td>
     </tr>
 <% end %>

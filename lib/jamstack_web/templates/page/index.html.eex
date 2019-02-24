@@ -1,5 +1,6 @@
 <section class="phx-hero">
-  <h1>quick, take aux</h1>
-  <p>sign in with spotify to get started</p>
-  <button id="spotify-login">rock & roll brochacho</button>
+  <h1>jamstack</h1>
+  <h2>quick, take aux</h2>
+  <p>sign in with ur join code</p>
+  <%= button "rock & roll brochacho", to: "/party", method: "get" %>
 </section>
