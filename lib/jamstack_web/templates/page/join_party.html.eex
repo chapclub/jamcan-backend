@@ -1,4 +1,11 @@
+<h1>forcibly take aux</h1>
+
 <%= form_for @conn, Routes.party_path(@conn, :join), [as: :join], fn f -> %>
+  <%= label f, :name %>
+  <%= text_input f, :name %>
+
+  <%= label f, :join_code %>
   <%= text_input f, :join_code %>
-  <%= submit "forcibly take aux" %>
+
+  <%= submit "let's jam" %>
 <% end %>
