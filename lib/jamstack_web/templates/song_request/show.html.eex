@@ -1,0 +1,10 @@
+<h1>Check this banger</h1>
+
+<section>
+  <h3><%= @song_request.title %></h3>
+  <strong><%= @song_request.boo_count %> Boos</strong>
+</section>
+
+<br />
+<span><%= link "Edit", to: Routes.song_request_path(@conn, :edit, @song_request) %></span>
+<span><%= link "Back", to: Routes.song_request_path(@conn, :index) %></span>

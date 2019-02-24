@@ -17,12 +17,16 @@ defmodule JamstackWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+
+    get "/party", PageController, :join_party
+    resources "/aux", SongRequestController
   end
 
   # Other scopes may use custom stacks.
   scope "/api", JamstackWeb do
     pipe_through :api
 
+    post "/join", PartyController, :join
     resources "/parties", PartyController, except: [:new, :edit]
   end
 end

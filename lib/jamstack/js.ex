@@ -38,6 +38,11 @@ defmodule Jamstack.JS do
   """
   def get_party!(id), do: Repo.get!(Party, id)
 
+  def get_party_by_join_code(join_code) do
+    Party.query_with_join_code(join_code)
+    |> Repo.one()
+  end
+
   @doc """
   Creates a party.
 
@@ -51,7 +56,6 @@ defmodule Jamstack.JS do
 
   """
   def create_party(attrs \\ %{}) do
-    # TODO: create a session
     %Party{
       join_code: SessionCode.take_code()
     }

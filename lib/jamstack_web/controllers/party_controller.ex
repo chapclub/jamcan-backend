@@ -22,7 +22,13 @@ defmodule JamstackWeb.PartyController do
 
   def show(conn, %{"id" => id}) do
     party = JS.get_party!(id)
-    render(conn, "show.json", party: party)
+
+    queue =
+      Jamstack.Party.list_song_requests()
+      |> Enum.filter(&("#{&1.party_id}" == id))
+
+
+    render(conn, "show.json", %{ party: party, queue: queue })
   end
 
   def update(conn, %{"id" => id, "party" => party_params}) do
@@ -39,5 +45,32 @@ defmodule JamstackWeb.PartyController do
     with {:ok, %Party{}} <- JS.delete_party(party) do
       send_resp(conn, :no_content, "")
     end
+  end
+
+  @doc """
+  Handles the /aux form result to set the party id within the session. When
+  working with the song request frontend, a song is inserted into the party id
+  found within the session.
+  """
+  def join(conn, %{"join" => form_data}) do
+    %{
+      "join_code" => join_code,
+      "name" => name,
+    } = form_data
+
+    case JS.get_party_by_join_code(join_code) do
+      %Party{} = party ->
+        fetch_session(conn)
+        |> put_session(:party_id, party.id)
+        |> put_session(:name, name)
+        |> redirect(to: "/aux")
+      nil ->
+        conn
+        |> redirect(to: Routes.page_path(conn, :join_party, not_found: true))
+      _ ->
+        conn
+        |> redirect(to: Routes.page_path(conn, :join_party, wat: true))
+    end
+
   end
 end

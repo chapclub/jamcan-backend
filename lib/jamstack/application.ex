@@ -9,6 +9,7 @@ defmodule Jamstack.Application do
     # List all child processes to be supervised
     children = [
       Jamstack.JS.SessionCode,
+      Jamstack.JS.Youtube,
       # Start the Ecto repository
       Jamstack.Repo,
       # Start the endpoint when the application starts

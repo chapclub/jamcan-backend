@@ -20,7 +20,7 @@ defmodule Jamstack.MixProject do
   def application do
     [
       mod: {Jamstack.Application, []},
-      extra_applications: [:spotify_ex, :logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools]
     ]
   end
 
@@ -43,7 +43,9 @@ defmodule Jamstack.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:spotify_ex, "~> 2.0.9"}
+      {:google_api_storage, "~> 0.0.1"},
+      {:goth, "~> 1.0.0"},
+      {:google_api_you_tube, "~> 0.0.1"}
     ]
   end
 
