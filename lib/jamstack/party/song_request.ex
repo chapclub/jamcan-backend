@@ -5,8 +5,9 @@ defmodule Jamstack.Party.SongRequest do
   alias Jamstack.JS.Party
 
   schema "song_requests" do
-    field :boo_count, :integer
+    field :boo_count, :integer, default: 0
     field :spotify_uri, :string
+    field :title, :string
     belongs_to :party, Party
 
     timestamps()
@@ -15,7 +16,7 @@ defmodule Jamstack.Party.SongRequest do
   @doc false
   def changeset(song_request, attrs) do
     song_request
-    |> cast(attrs, [:spotify_uri, :boo_count])
-    |> validate_required([:spotify_uri, :boo_count])
+    |> cast(attrs, [:spotify_uri, :boo_count, :title])
+    |> validate_required([:spotify_uri, :boo_count, :title])
   end
 end

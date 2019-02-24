@@ -36,7 +36,7 @@ defmodule JamstackWeb.SongRequestController do
   end
 
   def new(conn, params) do
-    { conn, _ } = protecc(conn)
+    { conn, { party_id, _ } } = protecc(conn)
     changeset = Party.change_song_request(%SongRequest{})
 
     query = params["query"]
@@ -45,7 +45,7 @@ defmodule JamstackWeb.SongRequestController do
       _ -> Jamstack.JS.Youtube.search(query)
     end
 
-    render(conn, "new.html", changeset: changeset, results: results.items)
+    render(conn, "new.html", changeset: changeset, results: results.items, party_id: party_id)
   end
 
   def create(conn, %{"song_request" => song_request_params}) do

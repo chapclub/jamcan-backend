@@ -5,6 +5,7 @@ defmodule Jamstack.Repo.Migrations.CreateSongRequests do
     create table(:song_requests) do
       add :spotify_uri, :string
       add :boo_count, :integer
+      add :title, :string
       add :party_id, references(:parties, on_delete: :delete_all)
 
       timestamps()

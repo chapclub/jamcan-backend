@@ -6,11 +6,19 @@
 <% end %>
 
 <%= for result <- @results do %>
-  <div class="result">
-    <img src="<%= result.snippet.thumbnails.medium.url %>" />
-    <h4><%= result.snippet.title %></h4>
-    <p><%= result.snippet.description %></p>
-  </div>
+  <%= form_for @conn, Routes.song_request_path(@conn, :create), [as: :song_request], fn f -> %>
+    <div class="result">
+      <img src="<%= result.snippet.thumbnails.medium.url %>" />
+      <h4><%= result.snippet.title %></h4>
+      <p><%= result.snippet.description %></p>
+
+      <%= hidden_input f, :spotify_uri, value: result.id.videoId %>
+      <%= hidden_input f, :title, value: result.snippet.title %>
+      <%= hidden_input f, :party_id, value: @party_id %>
+      <%= submit "certified banger", to: Routes.song_request_path(@conn, :create) %>
+      <br />
+    </div>
+  <% end %>
 <% end %>
 
 <span><%= link "Back", to: Routes.song_request_path(@conn, :index) %></span>
