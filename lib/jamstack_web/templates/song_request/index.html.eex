@@ -1,11 +1,11 @@
-<h1>Listing Song requests</h1>
-<h3>Party Join Code: <%= @party_id %></h3>
+<h1>queue</h1>
+<h3>join code: <%= @party.join_code %></h3>
 
 <table>
   <thead>
     <tr>
-      <th>Spotify uri</th>
-      <th>Boo count</th>
+      <th>Song Name - Spotify URI</th>
+      <th>Boo's</th>
 
       <th></th>
     </tr>

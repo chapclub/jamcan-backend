@@ -2,11 +2,12 @@ defmodule Jamstack.Party.SongRequest do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Jamstack.JS.Party
 
   schema "song_requests" do
     field :boo_count, :integer
     field :spotify_uri, :string
-    field :party, :id
+    belongs_to :party, Party
 
     timestamps()
   end

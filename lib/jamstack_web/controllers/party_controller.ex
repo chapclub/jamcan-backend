@@ -49,10 +49,20 @@ defmodule JamstackWeb.PartyController do
   def join(conn, %{"join" => form_data}) do
     %{"join_code" => join_code} = form_data
 
-    party = JS.get_party_by_join_code!(join_code)
+    case JS.get_party_by_join_code(join_code) do
+      %Party{} = party ->
+        fetch_session(conn)
+        |> put_session(:party_id, party.id)
+        |> redirect(to: "/aux")
+      nil ->
+        conn
+        |> put_flash(:error, "That join code is fake! Use a real one!")
+        |> redirect(to: Routes.page_path(conn, :join_party))
+      _ ->
+        conn
+        |> put_flash(:error, "wat!")
+        |> redirect(to: Routes.page_path(conn, :join_party))
+    end
 
-    fetch_session(conn)
-    |> put_session(:party_id, party.id)
-    |> redirect(to: "/aux")
   end
 end

@@ -1,6 +1,7 @@
 defmodule JamstackWeb.SongRequestController do
   use JamstackWeb, :controller
 
+  alias Jamstack.JS
   alias Jamstack.Party
   alias Jamstack.Party.SongRequest
 
@@ -26,8 +27,9 @@ defmodule JamstackWeb.SongRequestController do
   def index(conn, _params) do
     { conn, party_id } = protecc(conn)
     song_requests = Party.list_song_requests()
+    party = JS.get_party!(party_id)
 
-    render(conn, "index.html", song_requests: song_requests, party_id: party_id)
+    render(conn, "index.html", song_requests: song_requests, party: party)
   end
 
   def new(conn, _params) do

@@ -5,11 +5,11 @@ defmodule Jamstack.Repo.Migrations.CreateSongRequests do
     create table(:song_requests) do
       add :spotify_uri, :string
       add :boo_count, :integer
-      add :party, references(:parties, on_delete: :nothing)
+      add :party_id, references(:parties, on_delete: :delete_all)
 
       timestamps()
     end
 
-    create index(:song_requests, [:party])
+    create index(:song_requests, [:party_id])
   end
 end
