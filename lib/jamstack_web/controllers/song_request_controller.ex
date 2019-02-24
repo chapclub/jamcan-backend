@@ -4,9 +4,7 @@ defmodule JamstackWeb.SongRequestController do
   alias Jamstack.Party
   alias Jamstack.Party.SongRequest
 
-  def index(conn, _params) do
-    song_requests = Party.list_song_requests()
-
+  defp protecc(conn) do
     party_id = fetch_session(conn)
     |> get_session(:party_id)
 
@@ -15,17 +13,26 @@ defmodule JamstackWeb.SongRequestController do
         conn
         |> put_flash(:error, "Please join a party first!")
         |> redirect(to: Routes.page_path(conn, :join_party))
-
-      _ -> render(conn, "index.html", song_requests: song_requests, party_id: party_id)
+      _ -> { conn, party_id }
     end
   end
 
+  def index(conn, _params) do
+    { conn, party_id } = protecc(conn)
+    song_requests = Party.list_song_requests()
+
+    render(conn, "index.html", song_requests: song_requests, party_id: party_id)
+  end
+
   def new(conn, _params) do
+    { conn, _ } = protecc(conn)
     changeset = Party.change_song_request(%SongRequest{})
     render(conn, "new.html", changeset: changeset)
   end
 
   def create(conn, %{"song_request" => song_request_params}) do
+    { conn, _ } = protecc(conn)
+
     case Party.create_song_request(song_request_params) do
       {:ok, song_request} ->
         conn
@@ -38,17 +45,23 @@ defmodule JamstackWeb.SongRequestController do
   end
 
   def show(conn, %{"id" => id}) do
+    { conn, _ } = protecc(conn)
+
     song_request = Party.get_song_request!(id)
     render(conn, "show.html", song_request: song_request)
   end
 
   def edit(conn, %{"id" => id}) do
+    { conn, _ } = protecc(conn)
+
     song_request = Party.get_song_request!(id)
     changeset = Party.change_song_request(song_request)
     render(conn, "edit.html", song_request: song_request, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "song_request" => song_request_params}) do
+    { conn, _ } = protecc(conn)
+
     song_request = Party.get_song_request!(id)
 
     case Party.update_song_request(song_request, song_request_params) do
@@ -63,6 +76,8 @@ defmodule JamstackWeb.SongRequestController do
   end
 
   def delete(conn, %{"id" => id}) do
+    { conn, _ } = protecc(conn)
+
     song_request = Party.get_song_request!(id)
     {:ok, _song_request} = Party.delete_song_request(song_request)
 
