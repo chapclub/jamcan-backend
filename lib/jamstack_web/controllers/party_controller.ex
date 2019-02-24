@@ -56,12 +56,10 @@ defmodule JamstackWeb.PartyController do
         |> redirect(to: "/aux")
       nil ->
         conn
-        |> put_flash(:error, "That join code is fake! Use a real one!")
-        |> redirect(to: Routes.page_path(conn, :join_party))
+        |> redirect(to: Routes.page_path(conn, :join_party, not_found: true))
       _ ->
         conn
-        |> put_flash(:error, "wat!")
-        |> redirect(to: Routes.page_path(conn, :join_party))
+        |> redirect(to: Routes.page_path(conn, :join_party, wat: true))
     end
 
   end
