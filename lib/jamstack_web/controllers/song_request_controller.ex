@@ -10,7 +10,14 @@ defmodule JamstackWeb.SongRequestController do
     party_id = fetch_session(conn)
     |> get_session(:party_id)
 
-    render(conn, "index.html", song_requests: song_requests, party_id: party_id)
+    case party_id do
+      nil ->
+        conn
+        |> put_flash(:error, "Please join a party first!")
+        |> redirect(to: Routes.page_path(conn, :join_party))
+
+      _ -> render(conn, "index.html", song_requests: song_requests, party_id: party_id)
+    end
   end
 
   def new(conn, _params) do
