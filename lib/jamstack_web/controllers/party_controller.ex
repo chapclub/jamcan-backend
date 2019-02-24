@@ -22,7 +22,13 @@ defmodule JamstackWeb.PartyController do
 
   def show(conn, %{"id" => id}) do
     party = JS.get_party!(id)
-    render(conn, "show.json", party: party)
+
+    queue =
+      Jamstack.Party.list_song_requests()
+      |> Enum.filter(&("#{&1.party_id}" == id))
+
+
+    render(conn, "show.json", %{ party: party, queue: queue })
   end
 
   def update(conn, %{"id" => id, "party" => party_params}) do

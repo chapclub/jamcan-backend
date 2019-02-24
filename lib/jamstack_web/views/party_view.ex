@@ -6,6 +6,19 @@ defmodule JamstackWeb.PartyView do
     %{data: render_many(parties, PartyView, "party.json")}
   end
 
+  def render("show.json", %{party: party, queue: queue}) do
+    %{
+      data: render_one(party, PartyView, "party.json"),
+      queue: Enum.map(queue, fn req ->
+        %{
+          boo_count: req.boo_count,
+          uri: req.spotify_uri,
+          title: req.title,
+        }
+      end)
+    }
+  end
+
   def render("show.json", %{party: party}) do
     %{data: render_one(party, PartyView, "party.json")}
   end
