@@ -4,6 +4,12 @@ defmodule JamstackWeb.SongRequestController do
   alias Jamstack.Party
   alias Jamstack.Party.SongRequest
 
+  @doc """
+  Given a connection, will look for the session party_id before rendering a
+  page. If it is not found, it will put an error flash and redirect to the join
+  party page. Otherwise, it'll return a tuple with the connection and party_id
+  from the session.
+  """
   defp protecc(conn) do
     party_id = fetch_session(conn)
     |> get_session(:party_id)
