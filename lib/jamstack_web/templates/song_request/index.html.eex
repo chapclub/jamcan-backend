@@ -1,5 +1,7 @@
-<h1>hey <%= @name %>, you've got aux</h1>
+<h1>hey <%= @name %>, welcome to <%= @party.title %></h1>
+<h4>you've got aux</h4>
 <h3>join code: <%= @party.join_code %></h3>
+<h4>tell ur friends its lit</h4>
 
 <table>
   <thead>
