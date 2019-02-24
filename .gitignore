@@ -43,3 +43,5 @@ npm-debug.log
 
 /config/secret.exs
 /config/spotify.exs
+
+/config/delvaze-e409efb45654.json
