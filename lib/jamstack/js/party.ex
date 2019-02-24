@@ -17,7 +17,7 @@ defmodule Jamstack.JS.Party do
   def changeset(party, attrs) do
     party
     |> cast(attrs, [:title, :join_code, :active, :owner_id])
-    |> validate_required([:title, :join_code, :active, :owner_id])
+    |> validate_required([:title, :join_code, :active])
   end
 
   @doc """
