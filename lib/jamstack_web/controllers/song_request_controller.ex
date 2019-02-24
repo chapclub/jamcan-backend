@@ -35,10 +35,17 @@ defmodule JamstackWeb.SongRequestController do
     render(conn, "index.html", song_requests: song_requests, party: party, name: name)
   end
 
-  def new(conn, _params) do
+  def new(conn, params) do
     { conn, _ } = protecc(conn)
     changeset = Party.change_song_request(%SongRequest{})
-    render(conn, "new.html", changeset: changeset)
+
+    query = params["query"]
+    {status, results} = case query do
+      nil -> {:ok, []}
+      _ -> Jamstack.JS.Youtube.search(query)
+    end
+
+    render(conn, "new.html", changeset: changeset, results: results.items)
   end
 
   def create(conn, %{"song_request" => song_request_params}) do

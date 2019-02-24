@@ -1,5 +1,16 @@
-<h1>New Song request</h1>
+<h1>search for a song 🅱️</h1>
 
-<%= render "form.html", Map.put(assigns, :action, Routes.song_request_path(@conn, :create)) %>
+<%= form_for @conn, Routes.song_request_path(@conn, :new), [method: :get, class: "pull-right"], fn f -> %>
+  <%= search_input f, :query %>
+  <%= submit "bet" %>
+<% end %>
+
+<%= for result <- @results do %>
+  <div class="result">
+    <img src="<%= result.snippet.thumbnails.medium.url %>" />
+    <h4><%= result.snippet.title %></h4>
+    <p><%= result.snippet.description %></p>
+  </div>
+<% end %>
 
 <span><%= link "Back", to: Routes.song_request_path(@conn, :index) %></span>
