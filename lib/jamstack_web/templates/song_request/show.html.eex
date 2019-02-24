@@ -1,0 +1,18 @@
+<h1>Show Song request</h1>
+
+<ul>
+
+  <li>
+    <strong>Spotify uri:</strong>
+    <%= @song_request.spotify_uri %>
+  </li>
+
+  <li>
+    <strong>Boo count:</strong>
+    <%= @song_request.boo_count %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.song_request_path(@conn, :edit, @song_request) %></span>
+<span><%= link "Back", to: Routes.song_request_path(@conn, :index) %></span>
