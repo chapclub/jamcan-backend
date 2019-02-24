@@ -40,4 +40,19 @@ defmodule JamstackWeb.PartyController do
       send_resp(conn, :no_content, "")
     end
   end
+
+  @doc """
+  Handles the /aux form result to set the party id within the session. When
+  working with the song request frontend, a song is inserted into the party id
+  found within the session.
+  """
+  def join(conn, %{"join" => form_data}) do
+    %{"join_code" => join_code} = form_data
+
+    party = JS.get_party_by_join_code!(join_code)
+
+    fetch_session(conn)
+    |> put_session(:party_id, party.id)
+    |> redirect(to: "/aux")
+  end
 end

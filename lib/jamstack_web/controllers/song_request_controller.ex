@@ -6,7 +6,11 @@ defmodule JamstackWeb.SongRequestController do
 
   def index(conn, _params) do
     song_requests = Party.list_song_requests()
-    render(conn, "index.html", song_requests: song_requests)
+
+    party_id = fetch_session(conn)
+    |> get_session(:party_id)
+
+    render(conn, "index.html", song_requests: song_requests, party_id: party_id)
   end
 
   def new(conn, _params) do

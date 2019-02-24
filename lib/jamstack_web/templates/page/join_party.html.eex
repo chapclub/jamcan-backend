@@ -1,0 +1,4 @@
+<%= form_for @conn, Routes.party_path(@conn, :join), [as: :join], fn f -> %>
+  <%= text_input f, :join_code %>
+  <%= submit "forcibly take aux" %>
+<% end %>
