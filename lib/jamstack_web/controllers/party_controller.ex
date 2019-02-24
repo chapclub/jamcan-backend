@@ -47,12 +47,16 @@ defmodule JamstackWeb.PartyController do
   found within the session.
   """
   def join(conn, %{"join" => form_data}) do
-    %{"join_code" => join_code} = form_data
+    %{
+      "join_code" => join_code,
+      "name" => name,
+    } = form_data
 
     case JS.get_party_by_join_code(join_code) do
       %Party{} = party ->
         fetch_session(conn)
         |> put_session(:party_id, party.id)
+        |> put_session(:name, name)
         |> redirect(to: "/aux")
       nil ->
         conn

@@ -1,4 +1,4 @@
-<h1>queue</h1>
+<h1>hey <%= @name %>, you've got aux</h1>
 <h3>join code: <%= @party.join_code %></h3>
 
 <table>
