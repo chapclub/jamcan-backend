@@ -10,6 +10,7 @@ defmodule Jamstack.Application do
     children = [
       Jamstack.JS.SessionCode,
       Jamstack.JS.Youtube,
+      Jamstack.Party.Lobby,
       # Start the Ecto repository
       Jamstack.Repo,
       # Start the endpoint when the application starts
